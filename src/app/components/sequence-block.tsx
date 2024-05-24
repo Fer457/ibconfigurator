@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useRef, useEffect } from "react";
-import NavigateBlock from "./navigate-block";
-import SpeakBlock from "./speak-block";
+import ActionBlock from "./action-block";
 
 interface Position {
   x: number;
@@ -132,62 +131,48 @@ const SequenceBlock: React.FC<SequenceBlockProps> = ({
         }}
       >
         {internalBlocks.map((block) => {
-          switch (block.type) {
-            case "navigate":
-              return (
-                <NavigateBlock
-                  key={block.id}
-                  id={block.id}
-                  data={block.data}
-                  position={block.position}
-                  onDragStart={() => {}}
-                  isDropped={true}
-                  updateBlockData={updateInternalBlockData}
-                  containerRef={containerRef}
-                />
-              );
-            case "speak":
-              return (
-                <SpeakBlock
-                  key={block.id}
-                  id={block.id}
-                  data={block.data}
-                  position={block.position}
-                  onDragStart={() => {}}
-                  isDropped={true}
-                  updateBlockData={updateInternalBlockData}
-                  containerRef={containerRef}
-                />
-              );
-            default:
-              return null;
-          }
+          return (
+            <ActionBlock
+              key={block.id}
+              id={block.id}
+              type={block.type}
+              data={block.data}
+              position={block.position}
+              onDragStart={(e, id, type) =>
+                onDragStart(e, block.id, block.type)
+              }
+              isDropped={false}
+              updateBlockData={updateBlockData}
+              onStartConnection={onStartConnection}
+              onEndConnection={onEndConnection}
+            />
+          );
         })}
       </div>
       <div
         onMouseDown={handleStartConnection}
         style={{
-          width: '10px',
-          height: '10px',
-          backgroundColor: 'red',
-          position: 'absolute',
-          right: '-5px',
-          top: '50%',
-          transform: 'translateY(-50%)',
-          cursor: 'pointer',
+          width: "10px",
+          height: "10px",
+          backgroundColor: "red",
+          position: "absolute",
+          right: "-5px",
+          top: "50%",
+          transform: "translateY(-50%)",
+          cursor: "pointer",
         }}
       />
       <div
         onMouseUp={handleEndConnection}
         style={{
-          width: '10px',
-          height: '10px',
-          backgroundColor: 'blue',
-          position: 'absolute',
-          left: '-5px',
-          top: '50%',
-          transform: 'translateY(-50%)',
-          cursor: 'pointer',
+          width: "10px",
+          height: "10px",
+          backgroundColor: "blue",
+          position: "absolute",
+          left: "-5px",
+          top: "50%",
+          transform: "translateY(-50%)",
+          cursor: "pointer",
         }}
       />
     </div>

@@ -28,10 +28,11 @@ button {
   position: fixed;
   width: 400px;
   height: 100%;
-  background-color: #f0f0f0;
+  background-color: #999999;
   overflow-x: hidden;
   padding-top: 20px;
   box-shadow: 2px 0px 5px rgba(0,0,0,0.5);
+  z-index: 100;
 }
 
 .sidenav h3 {
@@ -39,11 +40,9 @@ button {
 }
 
 .main {
-  margin-left: 220px;
   height: 100vh;
   overflow: auto;
   background-color: #fff;
-  position: relative;
 }
 
 .workspace {
