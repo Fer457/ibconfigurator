@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useRef } from 'react';
 
 interface Position {
@@ -51,6 +50,7 @@ const ScreenBlock: React.FC<ScreenBlockProps> = ({
       headerText,
       buttons
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [headerImage, headerText, buttons]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, id?: number) => {
@@ -85,38 +85,23 @@ const ScreenBlock: React.FC<ScreenBlockProps> = ({
       id={`block-${id}`}
       draggable
       onDragStart={(e) => onDragStart(e, id, 'screen')}
+      className="relative border border-gray-300 rounded-lg p-5 bg-white shadow-lg"
       style={{
         position: isDropped ? 'absolute' : 'static',
         left: isDropped ? `${x}px` : 'auto',
         top: isDropped ? `${y}px` : 'auto',
-        border: '1px solid #ccc',
-        borderRadius: '8px',
-        padding: '20px',
-        cursor: 'grab',
-        backgroundColor: isDropped ? '#fff' : '#f0f0f0',
-        margin: '10px 0',
         width: '340px',
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-        transition: 'all 0.3s ease-in-out',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center'
+        cursor: 'grab'
       }}
     >
-      <h4 style={{ margin: '0 0 10px 0', textAlign: 'center', color: '#333' }}>Screen Block</h4>
+      <h4 className="text-center text-gray-700 mb-4">Screen Block</h4>
       <input
         type="text"
         name="headerImage"
-        placeholder="Header Image"
+        placeholder="Header Image URL"
         value={headerImage}
         onChange={handleInputChange}
-        style={{
-          width: '100%',
-          padding: '10px',
-          margin: '5px 0',
-          borderRadius: '4px',
-          border: '1px solid #ccc',
-        }}
+        className="w-full p-2 mb-2 border border-gray-300 rounded-md"
       />
       <input
         type="text"
@@ -124,30 +109,24 @@ const ScreenBlock: React.FC<ScreenBlockProps> = ({
         placeholder="Header Text"
         value={headerText}
         onChange={handleInputChange}
-        style={{
-          width: '100%',
-          padding: '10px',
-          margin: '5px 0',
-          borderRadius: '4px',
-          border: '1px solid #ccc',
-        }}
+        className="w-full p-2 mb-4 border border-gray-300 rounded-md"
       />
-      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', width: '100%' }}>
+      <div className="flex flex-wrap justify-between">
         {buttons.map((button) => (
-          <div key={button.id} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '10px', width: '30%' }}>
+          <div key={button.id} className="relative flex flex-col w-1/3 p-2">
+            <button
+              onClick={() => removeButton(button.id)}
+              className="absolute top-0 right-0 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
+            >
+              x
+            </button>
             <input
               type="text"
               name={`buttonIcon-${button.id}`}
               placeholder="Icon URL"
               value={button.icon}
               onChange={(e) => handleInputChange(e, button.id)}
-              style={{
-                width: '100%',
-                padding: '10px',
-                marginBottom: '5px',
-                borderRadius: '4px',
-                border: '1px solid #ccc',
-              }}
+              className="w-full p-2 mb-2 border border-gray-300 rounded-md"
             />
             <input
               type="text"
@@ -155,35 +134,17 @@ const ScreenBlock: React.FC<ScreenBlockProps> = ({
               placeholder="Button Text"
               value={button.text}
               onChange={(e) => handleInputChange(e, button.id)}
-              style={{
-                width: '100%',
-                padding: '10px',
-                marginBottom: '5px',
-                borderRadius: '4px',
-                border: '1px solid #ccc',
-              }}
+              className="w-full p-2 mb-2 border border-gray-300 rounded-md"
             />
-            <button onClick={() => removeButton(button.id)} style={{
-              width: '100%',
-              padding: '10px',
-              backgroundColor: 'red',
-              color: 'white',
-              borderRadius: '4px',
-              border: 'none',
-              cursor: 'pointer'
-            }}>x</button>
           </div>
         ))}
       </div>
-      <button onClick={addButton} style={{
-        width: '100%',
-        padding: '10px',
-        backgroundColor: '#007BFF',
-        color: 'white',
-        borderRadius: '4px',
-        border: 'none',
-        cursor: 'pointer'
-      }}>Add Button</button>
+      <button
+        onClick={addButton}
+        className="w-full p-2 mt-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
+      >
+        Add Button
+      </button>
     </div>
   );
 };
